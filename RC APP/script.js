@@ -52,6 +52,7 @@ const skinMap = {
 };
 
 const discordMap = {
+  AJMcSaucy: "https://discord.gg/Bu2YHeyPHf",
   AlphieeBuilds: "https://discord.gg/Fjf4XzJGgb",
   BuzzingSniper: "https://discord.gg/Ahhy8depYB",
   Craftopia: "https://discord.gg/J7FVVfPmvU",
