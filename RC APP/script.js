@@ -28,7 +28,7 @@ const mouseGlow = document.querySelector(".mouse-glow");
 const root = document.documentElement;
 
 const skinMap = {
-  AJMcSaucy: "SUAZB.png",
+  AJMcSaucy: "Aj.png",
   AlphieeBuilds: "AlphieeBuilds.png",
   Broken: "BrokenF8.png",
   BuzzingSniper: "BuzzingSniper.png",
