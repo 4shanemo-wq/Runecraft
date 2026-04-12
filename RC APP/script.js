@@ -68,6 +68,7 @@ const discordMap = {
   MonkeyingAround: "https://discord.gg/YVHfFg6eNG",
   Sab: "https://discord.gg/WFs5yry9Y",
   "Sarah Jo": "https://discord.gg/9CzgwpqBU6",
+  "Wya Benny": "https://discord.gg/CWTrSXe5y",
 };
 
 if (memberGrid) {
