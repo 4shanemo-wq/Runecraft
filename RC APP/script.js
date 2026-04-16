@@ -167,20 +167,20 @@ const members = [
 // To skip someone's turn or remove them from rotation, just delete their name here.
 const weekSchedule = {
   0:  "Craftopia",
-  1:  "AlphieeBuilds",
-  2:  "DKizzel",
-  3:  "EvAdain",
-  4:  "JerryCraft",
-  5:  "Emma",
-  6:  "AJMcSaucy",
-  7:  "Sab",
-  8:  "Tom Frizzle",
-  9:  "Seth",
-  10: "Secluded",
-  11: "Sarah Jo",
-  12: "SkepticHailz",
-  13: "Twizza",
-  14: "Kooby",
+  1:  "Kooby",
+  2:  "AlphieeBuilds",
+  3:  "DKizzel",
+  4:  "EvAdain",
+  5:  "JerryCraft",
+  6:  "Emma",
+  7:  "AJMcSaucy",
+  8:  "Sab",
+  9:  "Tom Frizzle",
+  10: "Seth",
+  11: "Secluded",
+  12: "Sarah Jo",
+  13: "SkepticHailz",
+  14: "Twizza",
   15: "Broken",
   16: "BuzzingSniper",
   17: "Remix",
@@ -188,6 +188,7 @@ const weekSchedule = {
   19: "MonkeyingAround",
 };
 const CYCLE_LENGTH = 20;
+const ROTATION_START_DATE = new Date(2026, 3, 12); // Sunday, April 12 2026
 
 const BACKEND_BASE_URL = "https://runecraft-livestatus.onrender.com"; // TODO: replace with your deployed backend URL
 const memberGrid = document.querySelector("#member-grid");
@@ -292,18 +293,24 @@ setInterval(updateCreatorLiveStatus, 60000);
 // Creator of the Week functionality
 function getWeekNumber() {
   const now = new Date();
-  const start = new Date(2026, 0, 1);
-  const diff = now - start;
-  return Math.floor(diff / (1000 * 60 * 60 * 24 * 7));
+  const currentSunday = new Date(now);
+  currentSunday.setHours(0, 0, 0, 0);
+  currentSunday.setDate(currentSunday.getDate() - currentSunday.getDay());
+
+  const startSunday = new Date(ROTATION_START_DATE);
+  startSunday.setHours(0, 0, 0, 0);
+  startSunday.setDate(startSunday.getDate() - startSunday.getDay());
+
+  const msPerWeek = 1000 * 60 * 60 * 24 * 7;
+  return Math.floor((currentSunday - startSunday) / msPerWeek);
 }
 
 function displayCreatorOfWeek() {
   const creatorShowcaseEl = document.getElementById('creator-showcase');
   if (!creatorShowcaseEl) return;
 
-  const SEASON_START_WEEK = 14;
   const weekNumber = getWeekNumber();
-  const offset = (weekNumber - SEASON_START_WEEK + CYCLE_LENGTH) % CYCLE_LENGTH;
+  const offset = ((weekNumber % CYCLE_LENGTH) + CYCLE_LENGTH) % CYCLE_LENGTH;
   const creatorName = weekSchedule[offset];
   const creator = members.find(m => m.name === creatorName);
   if (!creator) return;
