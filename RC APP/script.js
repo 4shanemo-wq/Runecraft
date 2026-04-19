@@ -483,3 +483,16 @@ updateServerStatus();
 
 // Update every 30 seconds
 setInterval(updateServerStatus, 30000);
+
+async function updateRuneCraftLiveStatus() {
+  const badgeEl = document.getElementById("runecraft-live-badge");
+  if (!badgeEl) return;
+
+  const statusMap = await fetchAllLiveStatuses(["runecraft.smp"]);
+  const isLive = statusMap["runecraft.smp"] === true;
+  badgeEl.textContent = isLive ? "🔴 LIVE NOW" : "Offline";
+  badgeEl.classList.toggle("live", isLive);
+}
+
+updateRuneCraftLiveStatus();
+setInterval(updateRuneCraftLiveStatus, 60000);
