@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --sky: #7dd6ff;
   --sky-deep: #48a9d8;
   --grass: #73cf4d;
@@ -401,10 +401,18 @@ h2 {
 .apply-link {
   min-height: 60px;
   padding: 1rem 1.5rem;
-  margin-top: 2rem;
+  margin-top: 1.2rem;
   align-self: center;
   max-width: 500px;
   font-size: 1.1rem;
+}
+
+.apply-copy {
+  max-width: 760px;
+  margin: 1rem auto 0;
+  text-align: center;
+  line-height: 1.7;
+  color: var(--text-soft);
 }
 
 .member-grid {
@@ -560,6 +568,11 @@ h2 {
 .event-item p {
   margin: 0.25rem 0;
   color: var(--text-soft);
+}
+
+.event-note {
+  font-weight: 700;
+  color: #fff3a7;
 }
 
 .gallery-grid {
@@ -1141,3 +1154,4 @@ h2 {
     --top: 78% !important;
   }
 }
+

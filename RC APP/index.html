@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -10,6 +10,7 @@
     />
     <meta name="keywords" content="Minecraft SMP, RuneCraft, creators, gaming community" />
     <meta name="author" content="RuneCraft SMP" />
+    <meta name="google-analytics-id" content="G-9Y4LRNCYRV" />
     <link rel="icon" href="assets/runecraft-logo.png" type="image/png" />
     <link rel="stylesheet" href="styles.css" />
 
@@ -44,12 +45,30 @@
     </script>
 
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'GA_MEASUREMENT_ID');
+      (function () {
+        const measurementId = document
+          .querySelector('meta[name="google-analytics-id"]')
+          ?.getAttribute("content")
+          ?.trim();
+
+        if (!measurementId || measurementId === "GA_MEASUREMENT_ID") {
+          return;
+        }
+
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+        document.head.appendChild(script);
+
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function gtag() {
+          window.dataLayer.push(arguments);
+        };
+
+        window.gtag("js", new Date());
+        window.gtag("config", measurementId);
+      })();
     </script>
   </head>
   <body>
@@ -126,8 +145,9 @@
     <header class="site-header">
       <div class="page-shell site-header-inner">
         <a class="site-brand" href="#top">RuneCraft SMP</a>
-        <button class="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+        <button class="menu-toggle" aria-label="Toggle navigation menu">&#9776;</button>
         <nav class="site-nav" aria-label="Primary navigation">
+          <a href="#about-section">About</a>
           <a href="#creator-of-week-panel">Creator of the Week</a>
           <a href="#member-grid-section">Creator Lineup</a>
           <a href="#faq-section">FAQ</a>
@@ -168,6 +188,25 @@
           >
           <span id="runecraft-live-badge" class="member-live-badge" data-tiktok-handle="runecraft.smp">Checking...</span>
         </div>
+      </section>
+
+      <section class="panel about-panel" id="about-section">
+        <div class="section-head">
+          <div>
+            <h2>About Us</h2>
+          </div>
+        </div>
+
+        <p class="about-copy">
+          RuneCraft SMP is a private 18+ creator-focused Minecraft server built for people who love
+          collaboration, storytelling, big builds, and turning in-game moments into content worth sharing.
+        </p>
+
+        <ul class="about-list">
+          <li>Creator-driven SMP with a focus on community, consistency, and fun.</li>
+          <li>Perfect for builders, survival players, roleplayers, and content creators who want active collaborators.</li>
+          <li>Season 2 is all about fresh builds, better stories, and helping creators grow together.</li>
+        </ul>
       </section>
 
       <section class="panel server-status-panel" id="server-status-panel">
@@ -227,6 +266,10 @@
 
         <p class="member-note">
           This list will be updated as more creators join RuneCraft!
+        </p>
+
+        <p class="apply-copy">
+          We are looking for active, community-minded creators who enjoy collaboration and want to help make Season 2 special.
         </p>
 
         <a
@@ -340,9 +383,10 @@
 
         <div class="events-list">
           <article class="event-item">
-            <h3>N/A</h3>
-            <p><strong>Date:</strong>N/A</p>
-            <p>N/A</p>
+            <h3>No Event Announced Yet</h3>
+            <p><strong>Date:</strong> To be announced</p>
+            <p>New community events, collabs, and special activities will be posted here as soon as they are scheduled.</p>
+            <p class="event-note">For the fastest updates, keep an eye on Discord and the RuneCraft TikTok.</p>
           </article>
         </div>
       </section>
@@ -378,6 +422,7 @@
           <p>RuneCraft is a private creator community. Use Discord to connect and follow our TikTok for the latest content.</p>
         </div>
         <div class="footer-links">
+          <a href="#about-section">About</a>
           <a href="#server-status-panel">Status</a>
           <a href="#creator-of-week-panel">Featured</a>
           <a href="#member-grid-section">Creators</a>
@@ -395,3 +440,7 @@
     <script src="script.js"></script>
   </body>
 </html>
+
+
+
+
