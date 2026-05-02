@@ -80,6 +80,11 @@ $sourceFiles = Get-ChildItem -Path $galleryRoot -File | Where-Object {
   $_.Extension.ToLowerInvariant() -in '.png', '.jpg', '.jpeg', '.webp'
 } | Sort-Object Name
 
+$sourceMap = @{}
+foreach ($file in $sourceFiles) {
+  $sourceMap[$file.Name] = $file
+}
+
 $existingEntries = @{}
 $existingOrder = @()
 
@@ -100,13 +105,19 @@ if (Test-Path $dataPath) {
   }
 }
 
+$removedSources = @($existingEntries.Keys | Where-Object { -not $sourceMap.ContainsKey($_) })
+foreach ($removed in $removedSources) {
+  $existingEntries.Remove($removed)
+}
+$existingOrder = @($existingOrder | Where-Object { $existingEntries.ContainsKey($_) })
+
 foreach ($file in $sourceFiles) {
   $displayOut = Join-Path $displayDir ($file.BaseName + '.jpg')
   $thumbOut = Join-Path $thumbDir ($file.BaseName + '.jpg')
   Save-ResizedJpeg -InputPath $file.FullName -OutputPath $displayOut -MaxWidth $DisplayWidth -Quality $DisplayQuality
   Save-ResizedJpeg -InputPath $file.FullName -OutputPath $thumbOut -MaxWidth $ThumbWidth -Quality $ThumbQuality
 
-  if (-not $existingEntries.Contains($file.Name)) {
+  if (-not $existingEntries.ContainsKey($file.Name)) {
     $friendlyCaption = Get-FriendlyCaption -BaseName $file.BaseName
     $existingEntries[$file.Name] = [ordered]@{
       source = "assets/Gallery/$($file.Name)"
@@ -118,7 +129,18 @@ foreach ($file in $sourceFiles) {
   }
 }
 
-$orderedNames = @($existingOrder | Where-Object { $existingEntries.Contains($_) })
+$expectedDisplayNames = @($sourceFiles | ForEach-Object { $_.BaseName + '.jpg' })
+$expectedThumbNames = @($expectedDisplayNames)
+
+Get-ChildItem -Path $displayDir -File -Filter '*.jpg' | Where-Object {
+  $expectedDisplayNames -notcontains $_.Name
+} | Remove-Item -Force
+
+Get-ChildItem -Path $thumbDir -File -Filter '*.jpg' | Where-Object {
+  $expectedThumbNames -notcontains $_.Name
+} | Remove-Item -Force
+
+$orderedNames = @($existingOrder | Where-Object { $existingEntries.ContainsKey($_) })
 $orderedNames += @($sourceFiles.Name | Where-Object { $orderedNames -notcontains $_ })
 
 $entriesText = foreach ($name in $orderedNames) {
@@ -142,5 +164,10 @@ Write-Host "  Source folder : $galleryRoot"
 Write-Host "  Display files : $displayDir"
 Write-Host "  Thumb files   : $thumbDir"
 Write-Host "  Data file     : $dataPath"
-Write-Host "" 
+if ($removedSources.Count -gt 0) {
+  Write-Host "  Removed deleted sources from gallery data:" -ForegroundColor Yellow
+  $removedSources | ForEach-Object { Write-Host "    $_" }
+}
+Write-Host ""
 Write-Host "Add new gallery images by dropping source files into assets/Gallery and rerunning this script." -ForegroundColor Green
+Write-Host "Deleted source images will now be removed from gallery-data.js and orphaned generated JPGs will be cleaned up automatically." -ForegroundColor Green

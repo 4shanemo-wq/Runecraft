@@ -82,6 +82,6 @@
     thumb: "assets/Gallery/thumbs/2026-04-17_19.47.32.jpg",
     alt: "RuneCraft build highlight 12",
     caption: "RuneCraft build highlight 12"
-  },
+  }
 ];
 
