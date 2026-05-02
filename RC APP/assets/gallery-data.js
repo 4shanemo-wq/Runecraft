@@ -83,12 +83,5 @@
     alt: "RuneCraft build highlight 12",
     caption: "RuneCraft build highlight 12"
   },
-  {
-    source: "assets/Gallery/runecraft-logo.png",
-    full: "assets/Gallery/display/runecraft-logo.jpg",
-    thumb: "assets/Gallery/thumbs/runecraft-logo.jpg",
-    alt: "RuneCraft build - runecraft logo",
-    caption: "RuneCraft build - runecraft logo"
-  }
 ];
 
