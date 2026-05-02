@@ -1155,3 +1155,237 @@ h2 {
   }
 }
 
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.gallery-carousel {
+  margin-top: 1.5rem;
+}
+
+.gallery-stage {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+}
+
+.gallery-feature {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 3px solid rgba(35, 14, 3, 0.92);
+  border-radius: 20px;
+  background: rgba(15, 9, 3, 0.35);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  cursor: zoom-in;
+  overflow: hidden;
+}
+
+.gallery-feature-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.gallery-nav,
+.gallery-expand,
+.gallery-lightbox__close,
+.gallery-lightbox__nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #2b1706;
+  color: #112304;
+  font-weight: 800;
+  background: linear-gradient(180deg, #fff9d2 0%, #ffed80 35%, #ffc446 70%, #d97606 100%);
+  box-shadow: 0 8px 0 rgba(127, 64, 0, 0.92);
+  transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+}
+
+.gallery-nav,
+.gallery-lightbox__nav {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  font-size: 1.6rem;
+}
+
+.gallery-expand,
+.gallery-lightbox__close {
+  min-height: 50px;
+  padding: 0.8rem 1.15rem;
+  border-radius: 14px;
+  text-decoration: none;
+  font-size: 0.98rem;
+}
+
+.gallery-nav:hover,
+.gallery-nav:focus-visible,
+.gallery-expand:hover,
+.gallery-expand:focus-visible,
+.gallery-lightbox__close:hover,
+.gallery-lightbox__close:focus-visible,
+.gallery-lightbox__nav:hover,
+.gallery-lightbox__nav:focus-visible,
+.gallery-feature:hover,
+.gallery-feature:focus-visible,
+.gallery-thumb:hover,
+.gallery-thumb:focus-visible {
+  transform: translateY(3px);
+  box-shadow: 0 5px 0 rgba(68, 34, 0, 0.82);
+  filter: brightness(1.03);
+}
+
+.gallery-feature:focus-visible,
+.gallery-nav:focus-visible,
+.gallery-expand:focus-visible,
+.gallery-thumb:focus-visible,
+.gallery-lightbox__close:focus-visible,
+.gallery-lightbox__nav:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+}
+
+.gallery-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.gallery-caption {
+  margin: 0;
+  color: #f6e7b0;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.gallery-thumbs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+}
+
+.gallery-thumb {
+  padding: 0;
+  border: 3px solid rgba(35, 14, 3, 0.8);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.gallery-thumb img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.gallery-thumb.is-active {
+  border-color: #fff3a7;
+  box-shadow: 0 0 0 3px rgba(255, 243, 167, 0.22);
+}
+
+.gallery-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+
+.gallery-lightbox[hidden] {
+  display: none;
+}
+
+.gallery-lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 5, 3, 0.85);
+  backdrop-filter: blur(10px);
+}
+
+.gallery-lightbox__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(1100px, 100%);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+.gallery-lightbox__image {
+  display: block;
+  width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: 20px;
+  border: 3px solid rgba(255, 244, 201, 0.3);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.gallery-lightbox__close {
+  position: absolute;
+  top: -4.2rem;
+  right: 0;
+}
+
+.gallery-lightbox__caption {
+  grid-column: 1 / -1;
+  margin: 0;
+  text-align: center;
+  color: #fff3a7;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .gallery-stage {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-nav {
+    width: 100%;
+    height: 52px;
+    font-size: 1.2rem;
+  }
+
+  .gallery-meta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .gallery-expand {
+    width: 100%;
+  }
+
+  .gallery-lightbox__dialog {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-lightbox__nav {
+    width: 100%;
+    height: 52px;
+  }
+
+  .gallery-lightbox__close {
+    position: static;
+    justify-self: end;
+  }
+}
+
+@media (max-width: 640px) {
+  .gallery-thumbs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

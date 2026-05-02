@@ -318,7 +318,7 @@
         </div>
 
         <div class="map-container">
-          <img class="map-image" src="assets/runecraftmap.png" alt="RuneCraft SMP world map" loading="lazy" />
+          <img class="map-image" src="assets/runecraftmap-optimized.jpg" alt="RuneCraft SMP world map" loading="lazy" decoding="async" />
           <p class="map-description">Explore the current RuneCraft world layout with our latest map snapshot.</p>
         </div>
       </section>
@@ -357,19 +357,21 @@
           </div>
         </div>
 
-        <div class="gallery-grid">
-          <img src="assets/Gallery/2026-04-19_12.19.40.png" alt="RuneCraft gallery image 2" loading="lazy" />
-          <img src="assets/Gallery/2026-04-19_12.19.59.png" alt="RuneCraft gallery image 3" loading="lazy" />
-          <img src="assets/Gallery/2026-04-19_12.20.48.png" alt="RuneCraft gallery image 4" loading="lazy" />
-          <img src="assets/Gallery/2026-04-19_12.21.16.png" alt="RuneCraft gallery image 5" loading="lazy" />
-          <img src="assets/Gallery/2026-04-19_12.21.33.png" alt="RuneCraft gallery image 6" loading="lazy" />
-          <img src="assets/Gallery/2026-04-19_12.22.02.png" alt="RuneCraft gallery image 7" loading="lazy" />
-          <img src="assets/Gallery/2026-04-19_12.22.58.png" alt="RuneCraft gallery image 8" loading="lazy" />
-          <img src="assets/Gallery/2026-04-19_12.23.38.png" alt="RuneCraft gallery image 9" loading="lazy" />
-          <img src="assets/Gallery/2026-04-19_12.24.05.png" alt="RuneCraft gallery image 10" loading="lazy" />
-          <img src="assets/Gallery/2026-04-19_12.24.49.png" alt="RuneCraft gallery image 11" loading="lazy" />
-          <img src="assets/Gallery/2026-04-19_12.25.17.png" alt="RuneCraft gallery image 12" loading="lazy" />
-          <img src="assets/Gallery/2026-04-17_19.47.32.png" alt="RuneCraft gallery image 1" loading="lazy" />
+        <div class="gallery-carousel" id="gallery-carousel">
+          <div class="gallery-stage">
+            <button class="gallery-nav gallery-nav--prev" id="gallery-prev" type="button" aria-label="Show previous gallery image">&#10094;</button>
+            <button class="gallery-feature" id="gallery-feature" type="button" aria-label="Open current gallery image fullscreen">
+              <img id="gallery-feature-image" class="gallery-feature-image" src="" alt="" loading="eager" decoding="async" />
+            </button>
+            <button class="gallery-nav gallery-nav--next" id="gallery-next" type="button" aria-label="Show next gallery image">&#10095;</button>
+          </div>
+
+          <div class="gallery-meta">
+            <p class="gallery-caption" id="gallery-caption">Loading gallery...</p>
+            <button class="gallery-expand" id="gallery-expand" type="button">Enlarge Image</button>
+          </div>
+
+          <div class="gallery-thumbs" id="gallery-thumbs" aria-label="Gallery thumbnails"></div>
         </div>
       </section>
 
@@ -437,9 +439,23 @@
       </div>
     </footer>
 
+    <div class="gallery-lightbox" id="gallery-lightbox" hidden>
+      <div class="gallery-lightbox__backdrop" data-gallery-close="true"></div>
+      <div class="gallery-lightbox__dialog" role="dialog" aria-modal="true" aria-label="RuneCraft gallery viewer">
+        <button class="gallery-lightbox__close" id="gallery-lightbox-close" type="button" aria-label="Close gallery viewer">&times;</button>
+        <button class="gallery-lightbox__nav gallery-lightbox__nav--prev" id="gallery-lightbox-prev" type="button" aria-label="Show previous gallery image">&#10094;</button>
+        <img id="gallery-lightbox-image" class="gallery-lightbox__image" src="" alt="" decoding="async" />
+        <button class="gallery-lightbox__nav gallery-lightbox__nav--next" id="gallery-lightbox-next" type="button" aria-label="Show next gallery image">&#10095;</button>
+        <p class="gallery-lightbox__caption" id="gallery-lightbox-caption"></p>
+      </div>
+    </div>
+
+    <script src="assets/gallery-data.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
+
+
 
 
 
