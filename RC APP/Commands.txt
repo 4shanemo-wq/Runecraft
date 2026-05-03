@@ -1,0 +1,7 @@
+powershell -ExecutionPolicy Bypass -File "C:\Users\4shan\OneDrive\Documents\GitHub\Runecraft\RC APP\tools\sync-gallery.ps1"
+
+powershell -ExecutionPolicy Bypass -File "C:\Users\4shan\OneDrive\Documents\GitHub\Runecraft\RC APP\tools\validate-site.ps1"
+
+powershell -ExecutionPolicy Bypass -File "C:\Users\4shan\OneDrive\Documents\GitHub\Runecraft\RC APP\tools\serve-site.ps1"
+
+powershell -ExecutionPolicy Bypass -File "C:\Users\4shan\OneDrive\Documents\GitHub\Runecraft\RC APP\tools\site-maintenance.ps1" -Task validate

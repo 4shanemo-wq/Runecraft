@@ -1397,3 +1397,131 @@ body.modal-open {
 
 
 
+
+.member-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.member-search-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: min(100%, 320px);
+}
+
+.member-search-label {
+  color: #fff5c4;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.member-search {
+  min-height: 52px;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  border: 3px solid rgba(43, 23, 6, 0.65);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+  font-size: 1rem;
+}
+
+.member-search::placeholder {
+  color: rgba(255, 248, 221, 0.72);
+}
+
+.member-search:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+}
+
+.member-results-count,
+.member-search-empty {
+  margin: 0;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+
+.member-search-empty {
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+.member-live-badge.is-loading,
+.status-loading {
+  position: relative;
+  color: #f9f0ca;
+}
+
+.member-live-badge.is-loading::after,
+.status-loading::after {
+  content: "";
+  display: inline-block;
+  width: 0.8rem;
+  height: 0.8rem;
+  margin-left: 0.55rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  animation: pulse-dot 900ms ease-in-out infinite alternate;
+}
+
+.event-link {
+  display: inline-flex;
+  margin-top: 0.9rem;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.75rem 1.1rem;
+  border-radius: 14px;
+  border: 3px solid #2b1706;
+  text-decoration: none;
+  font-weight: 800;
+  color: #112304;
+  background: linear-gradient(180deg, #99fff5 0%, #68dbe0 35%, #2fb1b5 70%, #177d88 100%);
+  box-shadow: 0 8px 0 rgba(30, 86, 93, 0.85);
+}
+
+.event-link:hover,
+.event-link:focus-visible {
+  transform: translateY(3px);
+  box-shadow: 0 5px 0 rgba(68, 34, 0, 0.82);
+  filter: brightness(1.03);
+}
+
+.event-link:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 4px;
+}
+
+@keyframes pulse-dot {
+  from {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 640px) {
+  .member-toolbar {
+    align-items: stretch;
+  }
+
+  .member-search-wrap {
+    width: 100%;
+  }
+
+  .member-results-count {
+    width: 100%;
+    text-align: center;
+  }
+}
