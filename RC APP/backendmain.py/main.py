@@ -46,6 +46,11 @@ class Application(BaseModel):
     tiktok: str
     message: str
 
+class CreatorHeartRequest(BaseModel):
+    creatorName: str
+    weekNumber: int
+
+
 def normalize_handle(handle: str) -> str:
     return handle.strip().lstrip("@").lower()
 
@@ -115,15 +120,15 @@ async def get_creator_hearts(creatorName: str = Query(...), weekNumber: int = Qu
     return {"count": counts.get(key, 0)}
 
 @app.post("/api/creator-hearts")
-async def post_creator_hearts(creatorName: str, weekNumber: int, request: Request):
-    if not creatorName:
+async def post_creator_hearts(payload: CreatorHeartRequest, request: Request):
+    if not payload.creatorName:
         raise HTTPException(status_code=400, detail="creatorName is required.")
 
     if is_rate_limited(request.client.host):
         raise HTTPException(status_code=429, detail="Too many requests. Please try again later.")
 
     counts = load_heart_counts()
-    key = f"{normalize_handle(creatorName)}::{weekNumber}"
+    key = f"{normalize_handle(payload.creatorName)}::{payload.weekNumber}"
     counts[key] = counts.get(key, 0) + 1
     save_heart_counts(counts)
     return {"count": counts[key]}

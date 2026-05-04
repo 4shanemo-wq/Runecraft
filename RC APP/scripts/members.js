@@ -144,7 +144,7 @@
       } catch (error) {
         console.error("Could not send heart:", error);
         button.disabled = false;
-        button.textContent = "Send a Heart ❤️";
+        button.textContent = "Try Again ❤️";
       }
     };
   }
