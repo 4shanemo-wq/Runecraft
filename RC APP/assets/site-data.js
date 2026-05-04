@@ -28,9 +28,9 @@
   ],
   events: [
     {
-      title: "No Event Announced Yet",
-      date: "To be announced",
-      description: "New community events, collabs, and special activities will be posted here as soon as they are scheduled.",
+      title: "Rune Event",
+      date: "5/16 - 5/23",
+      description: "A week-long event where players can find and collect special runes hidden around the world. Each rune grants more of the prize pool. Players must find them or steal them from other members.",
       note: "For the fastest updates, keep an eye on Discord and the RuneCraft TikTok."
     }
   ],
