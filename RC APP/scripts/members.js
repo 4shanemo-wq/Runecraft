@@ -1,6 +1,7 @@
 ﻿window.RuneCraftMembers = (() => {
   const members = window.RUNECRAFT_MEMBERS || [];
   const rotation = window.RUNECRAFT_CREATOR_ROTATION || {};
+  const backendBaseUrl = window.RUNECRAFT_SITE?.config?.backendBaseUrl || "";
   const memberGrid = document.getElementById("member-grid");
   const memberSearch = document.getElementById("member-search");
   const memberResultsCount = document.getElementById("member-results-count");
@@ -54,6 +55,14 @@
     window.RuneCraftLiveStatus?.refreshMemberBadges();
   }
 
+  function normalizeCreatorName(name) {
+    return String(name)
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-]/g, "");
+  }
+
   function getWeekNumber() {
     const startDate = rotation.startDate ? new Date(`${rotation.startDate}T00:00:00`) : new Date();
     const now = new Date();
@@ -67,6 +76,77 @@
 
     const msPerWeek = 1000 * 60 * 60 * 24 * 7;
     return Math.floor((currentSunday - startSunday) / msPerWeek);
+  }
+
+  async function fetchCreatorHeartCount(creatorName, weekNumber) {
+    if (!backendBaseUrl) return 0;
+    const params = new URLSearchParams({ creatorName, weekNumber: String(weekNumber) });
+    try {
+      const response = await fetch(`${backendBaseUrl}/api/creator-hearts?${params}`);
+      if (!response.ok) throw new Error("Bad response");
+      const data = await response.json();
+      return Number(data.count || 0);
+    } catch (error) {
+      console.error("Error fetching creator heart count:", error);
+      return 0;
+    }
+  }
+
+  async function postCreatorHeart(creatorName, weekNumber) {
+    if (!backendBaseUrl) throw new Error("Backend URL not configured.");
+    const body = { creatorName, weekNumber };
+    const response = await fetch(`${backendBaseUrl}/api/creator-hearts`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to send heart");
+    }
+    const data = await response.json();
+    return Number(data.count || 0);
+  }
+
+  function getCreatorHeartStorageKey(creatorName, weekNumber) {
+    return `creator-hearted:${normalizeCreatorName(creatorName)}::${weekNumber}`;
+  }
+
+  function markCreatorHearted(creatorName, weekNumber) {
+    const storageKey = getCreatorHeartStorageKey(creatorName, weekNumber);
+    window.localStorage.setItem(storageKey, "1");
+  }
+
+  function hasCreatorHearted(creatorName, weekNumber) {
+    const storageKey = getCreatorHeartStorageKey(creatorName, weekNumber);
+    return Boolean(window.localStorage.getItem(storageKey));
+  }
+
+  async function updateCreatorHeartControls(creatorName, weekNumber) {
+    const button = document.getElementById("creator-heart-button");
+    const countLabel = document.getElementById("creator-heart-count");
+    if (!button || !countLabel) return;
+
+    const hearted = hasCreatorHearted(creatorName, weekNumber);
+    const count = await fetchCreatorHeartCount(creatorName, weekNumber);
+    button.disabled = hearted;
+    button.textContent = hearted ? "Hearted ❤️" : "Send a Heart ❤️";
+    countLabel.textContent = count;
+
+    button.onclick = async () => {
+      if (button.disabled) return;
+      button.disabled = true;
+      button.textContent = "Sending…";
+      try {
+        const updatedCount = await postCreatorHeart(creatorName, weekNumber);
+        countLabel.textContent = updatedCount;
+        markCreatorHearted(creatorName, weekNumber);
+        button.textContent = "Hearted ❤️";
+      } catch (error) {
+        console.error("Could not send heart:", error);
+        button.disabled = false;
+        button.textContent = "Send a Heart ❤️";
+      }
+    };
   }
 
   function renderCreatorOfWeek() {
@@ -114,6 +194,7 @@
       creatorTikTokEl.href = creator.tiktok;
     }
 
+    updateCreatorHeartControls(creator.name, weekNumber);
     window.RuneCraftLiveStatus?.refreshCreatorBadge();
   }
 

@@ -1,5 +1,7 @@
 import asyncio
+import json
 from datetime import datetime, timedelta
+from pathlib import Path
 from typing import Dict, List
 from pydantic import BaseModel
 
@@ -47,10 +49,7 @@ class Application(BaseModel):
 def normalize_handle(handle: str) -> str:
     return handle.strip().lstrip("@").lower()
 
-
-def normalize_handle(handle: str) -> str:
-    return handle.strip().lstrip("@").lower()
-
+HEART_COUNTS_PATH = Path(__file__).parent / "creator_heart_counts.json"
 
 async def fetch_live_status(handle: str) -> bool:
     client = TikTokLiveClient(unique_id=handle)
@@ -90,6 +89,44 @@ async def tiktok_live_status(user: List[str] = Query(..., description="TikTok us
             }
 
     return {"results": [{"user": handle, "live": statuses.get(handle, False)} for handle in handles]}
+
+def load_heart_counts() -> Dict[str, int]:
+    if not HEART_COUNTS_PATH.exists():
+        return {}
+    try:
+        with HEART_COUNTS_PATH.open("r", encoding="utf-8") as fh:
+            data = json.load(fh)
+            return {str(k): int(v) for k, v in data.get("counts", {}).items()}
+    except Exception:
+        return {}
+
+def save_heart_counts(counts: Dict[str, int]) -> None:
+    HEART_COUNTS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with HEART_COUNTS_PATH.open("w", encoding="utf-8") as fh:
+        json.dump({"counts": counts}, fh)
+
+@app.get("/api/creator-hearts")
+async def get_creator_hearts(creatorName: str = Query(...), weekNumber: int = Query(...)):
+    if not creatorName:
+        raise HTTPException(status_code=400, detail="creatorName is required.")
+
+    counts = load_heart_counts()
+    key = f"{normalize_handle(creatorName)}::{weekNumber}"
+    return {"count": counts.get(key, 0)}
+
+@app.post("/api/creator-hearts")
+async def post_creator_hearts(creatorName: str, weekNumber: int, request: Request):
+    if not creatorName:
+        raise HTTPException(status_code=400, detail="creatorName is required.")
+
+    if is_rate_limited(request.client.host):
+        raise HTTPException(status_code=429, detail="Too many requests. Please try again later.")
+
+    counts = load_heart_counts()
+    key = f"{normalize_handle(creatorName)}::{weekNumber}"
+    counts[key] = counts.get(key, 0) + 1
+    save_heart_counts(counts)
+    return {"count": counts[key]}
 
 @app.post("/submit-application")
 async def submit_application(app: Application, request: Request):

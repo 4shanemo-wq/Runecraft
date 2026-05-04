@@ -875,6 +875,58 @@ h2 {
   text-transform: uppercase;
 }
 
+.creator-heart-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 1rem;
+}
+
+.heart-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.95rem 1.4rem;
+  border: 3px solid rgba(255, 255, 255, 0.26);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ff7ea3 0%, #ff517d 45%, #e23d61 100%);
+  color: white;
+  font-weight: 800;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+}
+
+.heart-button:hover,
+.heart-button:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 0 rgba(173, 41, 74, 0.6);
+  filter: brightness(1.05);
+}
+
+.heart-button:disabled {
+  opacity: 0.65;
+  cursor: default;
+  transform: none;
+  box-shadow: none;
+}
+
+.heart-copy {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 0.98rem;
+  letter-spacing: 0.01em;
+}
+
+.heart-copy span {
+  font-weight: 800;
+  color: #ffd45e;
+}
+
 .creator-live-badge.live {
   background: linear-gradient(180deg, #ff5a5a 0%, #d92d2d 100%);
   color: #fff;
