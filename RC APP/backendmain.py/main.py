@@ -12,9 +12,6 @@ from TikTokLive import TikTokLiveClient
 
 app = FastAPI()
 
-# Initialize the database
-init_db()
-
 # For a production site, replace '*' with the specific domains that should be allowed.
 origins = ["*"]
 
@@ -71,6 +68,9 @@ def init_db():
     ''')
     conn.commit()
     conn.close()
+
+# Initialize the database
+init_db()
 
 async def fetch_live_status(handle: str) -> bool:
     client = TikTokLiveClient(unique_id=handle)
