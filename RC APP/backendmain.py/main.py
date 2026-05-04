@@ -177,9 +177,7 @@ async def post_creator_hearts(payload: CreatorHeartRequest, request: Request):
     if not payload.creatorName:
         raise HTTPException(status_code=400, detail="creatorName is required.")
 
-    if is_rate_limited(request.client.host):
-        raise HTTPException(status_code=429, detail="Too many requests. Please try again later.")
-
+    # Removed rate limiting for heart sends to allow more frequent interactions
     counts = load_heart_counts()
     key = f"{normalize_handle(payload.creatorName)}::{payload.weekNumber}"
     counts[key] = counts.get(key, 0) + 1
