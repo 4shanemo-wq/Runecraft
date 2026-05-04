@@ -1,6 +1,6 @@
 ﻿window.RUNECRAFT_SITE = {
   config: {
-    backendBaseUrl: "https://runecraft-livestatus.onrender.com",
+    backendBaseUrl: "http://localhost:8000",
     serverStatusUrl: "https://api.mcstatus.io/v2/status/java/31.220.31.100:2204"
   },
   map: {

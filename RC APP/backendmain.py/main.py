@@ -1,6 +1,6 @@
 import asyncio
+import os
 import json
-import sqlite3
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List
@@ -8,7 +8,8 @@ from pydantic import BaseModel
 
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
-from TikTokLive import TikTokLiveClient
+import psycopg2
+from psycopg2.extras import RealDictCursor
 
 app = FastAPI()
 
@@ -55,10 +56,13 @@ class CreatorHeartRequest(BaseModel):
 def normalize_handle(handle: str) -> str:
     return handle.strip().lstrip("@").lower()
 
-HEART_COUNTS_DB = Path(__file__).parent / "creator_heart_counts.db"
+DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://user:password@localhost:5432/runecraft')
+
+def get_db_connection():
+    return psycopg2.connect(DATABASE_URL, cursor_factory=RealDictCursor)
 
 def init_db():
-    conn = sqlite3.connect(HEART_COUNTS_DB)
+    conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS heart_counts (
@@ -113,19 +117,19 @@ async def tiktok_live_status(user: List[str] = Query(..., description="TikTok us
 
 def load_heart_counts() -> Dict[str, int]:
     init_db()
-    conn = sqlite3.connect(HEART_COUNTS_DB)
+    conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute('SELECT key, count FROM heart_counts')
     rows = cursor.fetchall()
     conn.close()
-    return {row[0]: row[1] for row in rows}
+    return {row['key']: row['count'] for row in rows}
 
 def save_heart_counts(counts: Dict[str, int]) -> None:
     init_db()
-    conn = sqlite3.connect(HEART_COUNTS_DB)
+    conn = get_db_connection()
     cursor = conn.cursor()
     for key, count in counts.items():
-        cursor.execute('INSERT OR REPLACE INTO heart_counts (key, count) VALUES (?, ?)', (key, count))
+        cursor.execute('INSERT INTO heart_counts (key, count) VALUES (%s, %s) ON CONFLICT (key) DO UPDATE SET count = EXCLUDED.count', (key, count))
     conn.commit()
     conn.close()
 
