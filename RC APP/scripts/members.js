@@ -127,10 +127,16 @@
     if (!button || !countLabel) return;
 
     const hearted = hasCreatorHearted(creatorName, weekNumber);
+    button.disabled = true;
+    button.textContent = hearted ? "Hearted ❤️" : "Send a Heart ❤️";
+    countLabel.classList.add("status-loading");
+    countLabel.textContent = "Loading...";
+
     const count = await fetchCreatorHeartCount(creatorName, weekNumber);
     button.disabled = hearted;
     button.textContent = hearted ? "Hearted ❤️" : "Send a Heart ❤️";
     countLabel.textContent = count;
+    countLabel.classList.remove("status-loading");
 
     button.onclick = async () => {
       if (button.disabled) return;
