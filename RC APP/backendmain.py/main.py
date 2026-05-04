@@ -56,6 +56,18 @@ class CreatorHeartRequest(BaseModel):
 def normalize_handle(handle: str) -> str:
     return handle.strip().lstrip("@").lower()
 
+def get_current_week_number() -> int:
+    rotation = {"startDate": "2026-04-12", "cycleLength": 20}  # Simplified, assuming same as frontend
+    startDate = rotation.get("startDate")
+    if not startDate:
+        return 0
+    start_date = datetime.fromisoformat(startDate)
+    now = datetime.utcnow()
+    current_sunday = now - timedelta(days=now.weekday() + 1)  # Last Sunday
+    start_sunday = start_date - timedelta(days=start_date.weekday() + 1)
+    ms_per_week = 1000 * 60 * 60 * 24 * 7
+    return int((current_sunday - start_sunday).total_seconds() * 1000 // ms_per_week)
+
 DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://user:password@localhost:5432/runecraft')
 
 def get_db_connection():
@@ -119,8 +131,12 @@ def load_heart_counts() -> Dict[str, int]:
     init_db()
     conn = get_db_connection()
     cursor = conn.cursor()
+    # Clean up old heart counts (keep only current week)
+    current_week = get_current_week_number()
+    cursor.execute('DELETE FROM heart_counts WHERE key NOT LIKE %s', (f'%::{current_week}',))
     cursor.execute('SELECT key, count FROM heart_counts')
     rows = cursor.fetchall()
+    conn.commit()
     conn.close()
     return {row['key']: row['count'] for row in rows}
 
