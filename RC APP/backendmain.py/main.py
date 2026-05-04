@@ -1,5 +1,6 @@
 import asyncio
 import json
+import sqlite3
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List
@@ -10,6 +11,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from TikTokLive import TikTokLiveClient
 
 app = FastAPI()
+
+# Initialize the database
+init_db()
 
 # For a production site, replace '*' with the specific domains that should be allowed.
 origins = ["*"]
@@ -54,7 +58,19 @@ class CreatorHeartRequest(BaseModel):
 def normalize_handle(handle: str) -> str:
     return handle.strip().lstrip("@").lower()
 
-HEART_COUNTS_PATH = Path(__file__).parent / "creator_heart_counts.json"
+HEART_COUNTS_DB = Path(__file__).parent / "creator_heart_counts.db"
+
+def init_db():
+    conn = sqlite3.connect(HEART_COUNTS_DB)
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS heart_counts (
+            key TEXT PRIMARY KEY,
+            count INTEGER NOT NULL
+        )
+    ''')
+    conn.commit()
+    conn.close()
 
 async def fetch_live_status(handle: str) -> bool:
     client = TikTokLiveClient(unique_id=handle)
@@ -96,19 +112,22 @@ async def tiktok_live_status(user: List[str] = Query(..., description="TikTok us
     return {"results": [{"user": handle, "live": statuses.get(handle, False)} for handle in handles]}
 
 def load_heart_counts() -> Dict[str, int]:
-    if not HEART_COUNTS_PATH.exists():
-        return {}
-    try:
-        with HEART_COUNTS_PATH.open("r", encoding="utf-8") as fh:
-            data = json.load(fh)
-            return {str(k): int(v) for k, v in data.get("counts", {}).items()}
-    except Exception:
-        return {}
+    init_db()
+    conn = sqlite3.connect(HEART_COUNTS_DB)
+    cursor = conn.cursor()
+    cursor.execute('SELECT key, count FROM heart_counts')
+    rows = cursor.fetchall()
+    conn.close()
+    return {row[0]: row[1] for row in rows}
 
 def save_heart_counts(counts: Dict[str, int]) -> None:
-    HEART_COUNTS_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with HEART_COUNTS_PATH.open("w", encoding="utf-8") as fh:
-        json.dump({"counts": counts}, fh)
+    init_db()
+    conn = sqlite3.connect(HEART_COUNTS_DB)
+    cursor = conn.cursor()
+    for key, count in counts.items():
+        cursor.execute('INSERT OR REPLACE INTO heart_counts (key, count) VALUES (?, ?)', (key, count))
+    conn.commit()
+    conn.close()
 
 @app.get("/api/creator-hearts")
 async def get_creator_hearts(creatorName: str = Query(...), weekNumber: int = Query(...)):
