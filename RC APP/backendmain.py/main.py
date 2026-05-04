@@ -1,6 +1,7 @@
 import asyncio
 import os
 import json
+import sqlite3
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List
@@ -8,8 +9,7 @@ from pydantic import BaseModel
 
 from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
-import psycopg2
-from psycopg2.extras import RealDictCursor
+from TikTokLive import TikTokLiveClient
 
 app = FastAPI()
 
@@ -68,10 +68,15 @@ def get_current_week_number() -> int:
     ms_per_week = 1000 * 60 * 60 * 24 * 7
     return int((current_sunday - start_sunday).total_seconds() * 1000 // ms_per_week)
 
-DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://user:password@localhost:5432/runecraft')
+DATABASE_URL = os.getenv('DATABASE_URL', 'sqlite:///creator_heart_counts.db')
 
 def get_db_connection():
-    return psycopg2.connect(DATABASE_URL, cursor_factory=RealDictCursor)
+    if DATABASE_URL.startswith('sqlite'):
+        return sqlite3.connect(DATABASE_URL.replace('sqlite:///', ''))
+    else:
+        import psycopg2
+        from psycopg2.extras import RealDictCursor
+        return psycopg2.connect(DATABASE_URL, cursor_factory=RealDictCursor)
 
 def init_db():
     conn = get_db_connection()
@@ -133,19 +138,28 @@ def load_heart_counts() -> Dict[str, int]:
     cursor = conn.cursor()
     # Clean up old heart counts (keep only current week)
     current_week = get_current_week_number()
-    cursor.execute('DELETE FROM heart_counts WHERE key NOT LIKE %s', (f'%::{current_week}',))
+    if DATABASE_URL.startswith('sqlite'):
+        cursor.execute('DELETE FROM heart_counts WHERE key NOT LIKE ?', (f'%::{current_week}',))
+    else:
+        cursor.execute('DELETE FROM heart_counts WHERE key NOT LIKE %s', (f'%::{current_week}',))
     cursor.execute('SELECT key, count FROM heart_counts')
     rows = cursor.fetchall()
     conn.commit()
     conn.close()
-    return {row['key']: row['count'] for row in rows}
+    if DATABASE_URL.startswith('sqlite'):
+        return {row[0]: row[1] for row in rows}
+    else:
+        return {row['key']: row['count'] for row in rows}
 
 def save_heart_counts(counts: Dict[str, int]) -> None:
     init_db()
     conn = get_db_connection()
     cursor = conn.cursor()
     for key, count in counts.items():
-        cursor.execute('INSERT INTO heart_counts (key, count) VALUES (%s, %s) ON CONFLICT (key) DO UPDATE SET count = EXCLUDED.count', (key, count))
+        if DATABASE_URL.startswith('sqlite'):
+            cursor.execute('INSERT OR REPLACE INTO heart_counts (key, count) VALUES (?, ?)', (key, count))
+        else:
+            cursor.execute('INSERT INTO heart_counts (key, count) VALUES (%s, %s) ON CONFLICT (key) DO UPDATE SET count = EXCLUDED.count', (key, count))
     conn.commit()
     conn.close()
 
