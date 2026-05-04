@@ -63,10 +63,18 @@ def get_current_week_number() -> int:
         return 0
     start_date = datetime.fromisoformat(startDate)
     now = datetime.utcnow()
-    current_sunday = now - timedelta(days=now.weekday() + 1)  # Last Sunday
-    start_sunday = start_date - timedelta(days=start_date.weekday() + 1)
-    ms_per_week = 1000 * 60 * 60 * 24 * 7
-    return int((current_sunday - start_sunday).total_seconds() * 1000 // ms_per_week)
+    # Get the most recent Sunday
+    if now.weekday() == 6:  # Sunday
+        current_sunday = now
+    else:
+        current_sunday = now - timedelta(days=now.weekday() + 1)
+    # Get start Sunday
+    if start_date.weekday() == 6:
+        start_sunday = start_date
+    else:
+        start_sunday = start_date - timedelta(days=start_date.weekday() + 1)
+    weeks = (current_sunday - start_sunday).days // 7
+    return weeks
 
 DATABASE_URL = os.getenv('DATABASE_URL', 'sqlite:///creator_heart_counts.db')
 
