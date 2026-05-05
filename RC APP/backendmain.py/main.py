@@ -48,58 +48,9 @@ class Application(BaseModel):
     tiktok: str
     message: str
 
-class CreatorHeartRequest(BaseModel):
-    creatorName: str
-    weekNumber: int
-
 
 def normalize_handle(handle: str) -> str:
     return handle.strip().lstrip("@").lower()
-
-def get_current_week_number() -> int:
-    rotation = {"startDate": "2026-04-12", "cycleLength": 20}  # Simplified, assuming same as frontend
-    startDate = rotation.get("startDate")
-    if not startDate:
-        return 0
-    start_date = datetime.fromisoformat(startDate)
-    now = datetime.utcnow()
-    # Get the most recent Sunday
-    if now.weekday() == 6:  # Sunday
-        current_sunday = now
-    else:
-        current_sunday = now - timedelta(days=now.weekday() + 1)
-    # Get start Sunday
-    if start_date.weekday() == 6:
-        start_sunday = start_date
-    else:
-        start_sunday = start_date - timedelta(days=start_date.weekday() + 1)
-    weeks = (current_sunday - start_sunday).days // 7
-    return weeks
-
-DATABASE_URL = os.getenv('DATABASE_URL', 'sqlite:///creator_heart_counts.db')
-
-def get_db_connection():
-    if DATABASE_URL.startswith('sqlite'):
-        return sqlite3.connect(DATABASE_URL.replace('sqlite:///', ''))
-    else:
-        import psycopg2
-        from psycopg2.extras import RealDictCursor
-        return psycopg2.connect(DATABASE_URL, cursor_factory=RealDictCursor)
-
-def init_db():
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS heart_counts (
-            key TEXT PRIMARY KEY,
-            count INTEGER NOT NULL
-        )
-    ''')
-    conn.commit()
-    conn.close()
-
-# Initialize the database
-init_db()
 
 async def fetch_live_status(handle: str) -> bool:
     client = TikTokLiveClient(unique_id=handle)
@@ -139,58 +90,6 @@ async def tiktok_live_status(user: List[str] = Query(..., description="TikTok us
             }
 
     return {"results": [{"user": handle, "live": statuses.get(handle, False)} for handle in handles]}
-
-def load_heart_counts() -> Dict[str, int]:
-    init_db()
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    # Clean up old heart counts (keep only current week)
-    current_week = get_current_week_number()
-    if DATABASE_URL.startswith('sqlite'):
-        cursor.execute('DELETE FROM heart_counts WHERE key NOT LIKE ?', (f'%::{current_week}',))
-    else:
-        cursor.execute('DELETE FROM heart_counts WHERE key NOT LIKE %s', (f'%::{current_week}',))
-    cursor.execute('SELECT key, count FROM heart_counts')
-    rows = cursor.fetchall()
-    conn.commit()
-    conn.close()
-    if DATABASE_URL.startswith('sqlite'):
-        return {row[0]: row[1] for row in rows}
-    else:
-        return {row['key']: row['count'] for row in rows}
-
-def save_heart_counts(counts: Dict[str, int]) -> None:
-    init_db()
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    for key, count in counts.items():
-        if DATABASE_URL.startswith('sqlite'):
-            cursor.execute('INSERT OR REPLACE INTO heart_counts (key, count) VALUES (?, ?)', (key, count))
-        else:
-            cursor.execute('INSERT INTO heart_counts (key, count) VALUES (%s, %s) ON CONFLICT (key) DO UPDATE SET count = EXCLUDED.count', (key, count))
-    conn.commit()
-    conn.close()
-
-@app.get("/api/creator-hearts")
-async def get_creator_hearts(creatorName: str = Query(...), weekNumber: int = Query(...)):
-    if not creatorName:
-        raise HTTPException(status_code=400, detail="creatorName is required.")
-
-    counts = load_heart_counts()
-    key = f"{normalize_handle(creatorName)}::{weekNumber}"
-    return {"count": counts.get(key, 0)}
-
-@app.post("/api/creator-hearts")
-async def post_creator_hearts(payload: CreatorHeartRequest, request: Request):
-    if not payload.creatorName:
-        raise HTTPException(status_code=400, detail="creatorName is required.")
-
-    # Removed rate limiting for heart sends to allow more frequent interactions
-    counts = load_heart_counts()
-    key = f"{normalize_handle(payload.creatorName)}::{payload.weekNumber}"
-    counts[key] = counts.get(key, 0) + 1
-    save_heart_counts(counts)
-    return {"count": counts[key]}
 
 @app.post("/submit-application")
 async def submit_application(app: Application, request: Request):
