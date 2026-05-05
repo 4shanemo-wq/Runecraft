@@ -1,4 +1,3 @@
 fastapi
 uvicorn[standard]
 TikTokLive
-psycopg2-binary

@@ -1,7 +1,6 @@
 ﻿window.RuneCraftMembers = (() => {
   const members = window.RUNECRAFT_MEMBERS || [];
   const rotation = window.RUNECRAFT_CREATOR_ROTATION || {};
-  const backendBaseUrl = window.RUNECRAFT_SITE?.config?.backendBaseUrl || "";
   const memberGrid = document.getElementById("member-grid");
   const memberSearch = document.getElementById("member-search");
   const memberResultsCount = document.getElementById("member-results-count");
@@ -53,14 +52,6 @@
     }
 
     window.RuneCraftLiveStatus?.refreshMemberBadges();
-  }
-
-  function normalizeCreatorName(name) {
-    return String(name)
-      .trim()
-      .toLowerCase()
-      .replace(/\s+/g, "-")
-      .replace(/[^a-z0-9-]/g, "");
   }
 
   function getWeekNumber() {

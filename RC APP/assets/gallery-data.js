@@ -82,13 +82,6 @@
     thumb: "assets/Gallery/thumbs/2026-04-17_19.47.32.jpg",
     alt: "???",
     caption: "???"
-  },
-  {
-    source: "assets/Gallery/2026-05-03_20.20.30.png",
-    full: "assets/Gallery/display/2026-05-03_20.20.30.jpg",
-    thumb: "assets/Gallery/thumbs/2026-05-03_20.20.30.jpg",
-    alt: "Runes of RuneCraft - 2026-05-03 20:20:30",
-    caption: "Runes of RuneCraft"
   }
 ];
 
