@@ -101,3 +101,7 @@ async def submit_application(app: Application, request: Request):
     # For now, just log it
     print(f"New application: {app.name}, {app.email}, {app.tiktok}, {app.message}")
     return {"message": "Application submitted successfully!"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
