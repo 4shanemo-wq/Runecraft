@@ -89,7 +89,7 @@
   },
   {
     name: "Sarah Jo",
-    tiktok: "https://www.tiktok.com/@theprincess.sarah",
+    tiktok: "https://www.tiktok.com/@itssarahjojo",
     discord: "https://discord.gg/9CzgwpqBU6",
     skin: "TheActualSarah.png",
     card: "SarahJo.png",
