@@ -56,14 +56,6 @@
     gradient: "linear-gradient(135deg, #e63946 0%, #a4161a 25%, #fcf0f0 50%, #e63946 75%, #a4161a 100%)"
   },
   {
-    name: "Tom Frizzle",
-    tiktok: "https://www.tiktok.com/@frizzlemc",
-    discord: "https://discord.com/invite/ukNj2RmHu",
-    skin: "Frizzle.png",
-    card: "TomFrizzle.png",
-    gradient: "linear-gradient(135deg, #ff6b35 0%, #f7931e 25%, #fdb833 50%, #ff6b35 75%, #f7931e 100%)"
-  },
-  {
     name: "Craftopia",
     tiktok: "https://www.tiktok.com/@craftopia770",
     discord: "https://discord.gg/J7FVVfPmvU",
@@ -163,7 +155,7 @@
 
 window.RUNECRAFT_CREATOR_ROTATION = {
   startDate: "2026-04-12",
-  cycleLength: 20,
+  cycleLength: 19,
   schedule: [
     "Craftopia",
     "Kooby",
@@ -174,7 +166,6 @@ window.RUNECRAFT_CREATOR_ROTATION = {
     "EvAdain",
     "AJMcSaucy",
     "Sab",
-    "Tom Frizzle",
     "Secluded",
     "Sarah Jo",
     "SkepticHailz",
