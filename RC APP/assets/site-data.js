@@ -37,7 +37,7 @@
       title: "Game Night",
       date: "5/16",
       description: "Game night hosted my Emma! Join us for new game, and some other gaves youve seen before at out last game night event!",
-      note: "Start time not yet confirmed."
+      note: "~5:00 PM PST"
     }
   ],
   changelog: [
