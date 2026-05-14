@@ -28,10 +28,10 @@
   ],
   events: [
     {
-      title: "No Event Announced Yet",
-      date: "To be announced",
-      description: "New community events, collabs, and special activities will be posted here as soon as they are scheduled.",
-      note: "For the fastest updates, keep an eye on Discord and the RuneCraft TikTok."
+      title: "Rune Event",
+      date: "5/16 - 5/23",
+      description: "Welcome to the first-ever Rune Event! In this event there will be 5 runes hidden around the world. Our streamers must find them through the week or challenge each other for them. At the end of the week long event every rune that a person has ill be exchanged for a percentage of the price pool!",
+      note: "More updates and specific rules will be posted on our discord in the announcement section!"
     }
   ],
   changelog: [
