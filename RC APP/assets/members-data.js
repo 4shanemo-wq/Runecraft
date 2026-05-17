@@ -72,14 +72,6 @@
     gradient: "linear-gradient(135deg, #fdbb2d 0%, #22c1c3 25%, #226ce0 50%, #fdbb2d 75%, #22c1c3 100%)"
   },
   {
-    name: "Secluded",
-    tiktok: "https://www.tiktok.com/@secluded_riddle2",
-    discord: "https://discord.gg/WUwhNcJ2Ng",
-    skin: "Secluded.png",
-    card: "Secluded.png",
-    gradient: "linear-gradient(135deg, #1a535c 0%, #4ecdc4 25%, #a7e8be 50%, #1a535c 75%, #4ecdc4 100%)"
-  },
-  {
     name: "Sarah Jo",
     tiktok: "https://www.tiktok.com/@itssarahjojo",
     discord: "https://discord.gg/9CzgwpqBU6",
@@ -155,7 +147,7 @@
 
 window.RUNECRAFT_CREATOR_ROTATION = {
   startDate: "2026-04-12",
-  cycleLength: 19,
+  cycleLength: 18,
   schedule: [
     "Craftopia",
     "Kooby",
@@ -166,7 +158,6 @@ window.RUNECRAFT_CREATOR_ROTATION = {
     "EvAdain",
     "AJMcSaucy",
     "Sab",
-    "Secluded",
     "Sarah Jo",
     "SkepticHailz",
     "Twizza",
