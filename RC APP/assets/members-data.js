@@ -142,12 +142,28 @@
     skin: "Monkey.png",
     card: "MonkeyingAround.png",
     gradient: "linear-gradient(135deg, #f8b739 0%, #d4a574 25%, #4a90e2 50%, #f8b739 75%, #d4a574 100%)"
+  },
+  {
+    name: "It_Hurtz",
+    tiktok: "https://www.tiktok.com/@ttv_it_hurtz",
+    discord: "https://discord.com/invite/v8DveX8jJS",
+    skin: "It_Hurtz.png",
+    card: "It_Hurtz.png",
+    gradient: "linear-gradient(135deg, #3b82f6 0%, #9333ea 35%, #ef4444 100%)"
+  },
+  {
+    name: "WafflesnSyrp",
+    tiktok: "https://www.tiktok.com/@ilovewaffles_nsyrp",
+    discord: "https://discord.gg/WM2szBZE7e",
+    skin: "WafflesnSyrp.png",
+    card: "WafflesnSyrp.png",
+    gradient: "linear-gradient(135deg, #f59e0b 0%, #facc15 50%, #ffffff 100%)"
   }
 ];
 
 window.RUNECRAFT_CREATOR_ROTATION = {
   startDate: "2026-04-12",
-  cycleLength: 18,
+  cycleLength: 20,
   schedule: [
     "Craftopia",
     "Kooby",
@@ -166,6 +182,8 @@ window.RUNECRAFT_CREATOR_ROTATION = {
     "Remix",
     "JustJosh Gaming",
     "MonkeyingAround",
-    "JerryCraft"
+    "JerryCraft",
+    "It_Hurtz",
+    "WafflesnSryp"
   ]
 };
