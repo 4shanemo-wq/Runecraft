@@ -164,8 +164,8 @@
     tiktok: "https://www.tiktok.com/@vibesz",
     discord: "https://discord.gg/Y3FThGXbt2",
     skin: "Vibez.png",
-    card: "Vibez.png",
-    gradient: "linear-gradient(135deg, #f59e0b 0%, #facc15 50%, #ffffff 100%)"
+    card: "Vibes.png",
+    gradient: "linear-gradient(135deg, #dff7ff 0%, #9fdcff 30%, #cbeeff 55%, #ffffff 78%, #6fbfff 100%)"
   }
 ];
 
