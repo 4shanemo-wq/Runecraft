@@ -28,17 +28,11 @@
   ],
   events: [
     {
-      title: "Rune Event",
-      date: "5/16 - 5/23",
-      description: "Welcome to the first-ever Rune Event! In this event there will be 5 runes hidden around the world. Our streamers must find them through the week or challenge each other for them. At the end of the week long event every rune that a person has ill be exchanged for a percentage of the price pool!",
-      note: "More updates and specific rules will be posted on our discord in the announcement section!"
+      title: "No Events Yet",
+      date: "N/A",
+      description: "No events yet",
+      note: "Check our discord for more info on events!"
     },
-    {
-      title: "Game Night",
-      date: "5/16",
-      description: "Game night hosted my Emma! Join us for new game, and some other gaves youve seen before at out last game night event!",
-      note: "~5:00 PM PST"
-    }
   ],
   changelog: [
     { title: "April 9, 2026 - Server Update", description: "RuneCraft SMP has been updated to 26.1!" },

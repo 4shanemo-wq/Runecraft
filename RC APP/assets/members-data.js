@@ -66,7 +66,7 @@
   {
     name: "Seth",
     tiktok: "https://www.tiktok.com/@bettertogetherwithseth",
-    discord: "https://discord.gg/J24g9q3sn",
+    discord: "https://discord.gg/eUnPwvmbGt",
     skin: "BetterTogetherWithSeth.png",
     card: "Seth.png",
     gradient: "linear-gradient(135deg, #fdbb2d 0%, #22c1c3 25%, #226ce0 50%, #fdbb2d 75%, #22c1c3 100%)"
@@ -158,12 +158,20 @@
     skin: "WafflesnSyrp.png",
     card: "WafflesnSyrp.png",
     gradient: "linear-gradient(135deg, #f59e0b 0%, #facc15 50%, #ffffff 100%)"
+  },
+  {
+    name: "Vibez",
+    tiktok: "https://www.tiktok.com/@vibesz",
+    discord: "https://discord.gg/Y3FThGXbt2",
+    skin: "Vibez.png",
+    card: "Vibez.png",
+    gradient: "linear-gradient(135deg, #f59e0b 0%, #facc15 50%, #ffffff 100%)"
   }
 ];
 
 window.RUNECRAFT_CREATOR_ROTATION = {
   startDate: "2026-04-12",
-  cycleLength: 20,
+  cycleLength: 21,
   schedule: [
     "Craftopia",
     "Kooby",
@@ -184,6 +192,7 @@ window.RUNECRAFT_CREATOR_ROTATION = {
     "MonkeyingAround",
     "JerryCraft",
     "It_Hurtz",
-    "WafflesnSryp"
+    "WafflesnSryp",
+    "Vibez"
   ]
 };
