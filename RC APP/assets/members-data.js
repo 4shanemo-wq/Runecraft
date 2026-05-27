@@ -48,14 +48,6 @@
     gradient: "linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 25%, #ffd45e 50%, #ff6b6b 75%, #ee5a6f 100%)"
   },
   {
-    name: "Sab",
-    tiktok: "https://www.tiktok.com/@sabog.99",
-    discord: "https://discord.gg/WFs5yry9Y",
-    skin: "SUAZB.png",
-    card: "Sab.png",
-    gradient: "linear-gradient(135deg, #e63946 0%, #a4161a 25%, #fcf0f0 50%, #e63946 75%, #a4161a 100%)"
-  },
-  {
     name: "Craftopia",
     tiktok: "https://www.tiktok.com/@craftopia770",
     discord: "https://discord.gg/J7FVVfPmvU",
@@ -171,7 +163,7 @@
 
 window.RUNECRAFT_CREATOR_ROTATION = {
   startDate: "2026-04-12",
-  cycleLength: 21,
+  cycleLength: 20,
   schedule: [
     "Craftopia",
     "Kooby",
@@ -181,7 +173,6 @@ window.RUNECRAFT_CREATOR_ROTATION = {
     "DKizzel",
     "EvAdain",
     "AJMcSaucy",
-    "Sab",
     "Sarah Jo",
     "SkepticHailz",
     "Twizza",
