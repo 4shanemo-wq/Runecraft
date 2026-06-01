@@ -153,7 +153,7 @@
   },
   {
     name: "Vibez",
-    tiktok: "https://www.tiktok.com/@vibesz",
+    tiktok: "https://www.tiktok.com/@vibesz95",
     discord: "https://discord.gg/Y3FThGXbt2",
     skin: "Vibez.png",
     card: "Vibes.png",
