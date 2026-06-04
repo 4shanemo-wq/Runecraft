@@ -89,7 +89,7 @@
           <a href="#faq-section">FAQ</a>
           <a href="#gallery-section">Gallery</a>
           <a href="#events-section">Events</a>
-          <a href="#apply-section">Apply</a>
+          <a href="#" id="apply-nav">Apply</a>
         </nav>
       </div>
     </header>
@@ -150,7 +150,7 @@
         <p class="member-search-empty" id="member-search-empty" hidden>No creators match that search yet.</p>
         <p class="member-note">This list will be updated as more creators join RuneCraft!</p>
         <p class="apply-copy">We are looking for active, community-minded creators who enjoy collaboration and want to help make Season 2 special.</p>
-        <a class="apply-link" id="apply-section" href="https://tinyurl.com/RuneCraftsmp" target="_blank" rel="noreferrer">Are you a content creator? Apply here</a>
+        <button class="apply-link" id="apply-section" type="button">Are you a content creator? Apply here</button>
       </section>
 
       <section class="panel admin-panel" id="admin-panel">
@@ -213,6 +213,16 @@
         <img id="gallery-lightbox-image" class="gallery-lightbox__image" src="" alt="" decoding="async" />
         <button class="gallery-lightbox__nav gallery-lightbox__nav--next" id="gallery-lightbox-next" type="button" aria-label="Show next gallery image">&#10095;</button>
         <p class="gallery-lightbox__caption" id="gallery-lightbox-caption"></p>
+      </div>
+    </div>
+
+    <div class="apply-modal" id="apply-modal" hidden>
+      <div class="apply-modal__backdrop" data-apply-close="true"></div>
+      <div class="apply-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="apply-modal-title">
+        <button class="apply-modal__close" id="apply-modal-close" type="button" aria-label="Close application instructions">&times;</button>
+        <h2 id="apply-modal-title">How to Apply</h2>
+        <img class="apply-modal__image" src="assets/Application-Instructions.png" alt="RuneCraft application instructions" loading="lazy" />
+        <p class="apply-modal__text">Interested in being a RuneCraft member? To apply go to the Applications section of our discord <a href="https://discord.gg/vFCtvzqxNY" target="_blank" rel="noreferrer">https://discord.gg/vFCtvzqxNY</a> and select the member application. Answer the questions in the direct message that will open.</p>
       </div>
     </div>
 

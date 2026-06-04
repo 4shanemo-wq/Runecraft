@@ -82,6 +82,42 @@
     }
   }
 
+  function openApplyModal() {
+    const modal = document.getElementById("apply-modal");
+    if (!modal) return;
+    modal.hidden = false;
+    document.body.classList.add("modal-open");
+  }
+
+  function closeApplyModal() {
+    const modal = document.getElementById("apply-modal");
+    if (!modal) return;
+    modal.hidden = true;
+    document.body.classList.remove("modal-open");
+  }
+
+  function bindApplyModalEvents() {
+    const applyButton = document.getElementById("apply-section");
+    const applyNav = document.getElementById("apply-nav");
+    const closeButton = document.getElementById("apply-modal-close");
+    const backdrop = document.querySelector("[data-apply-close='true']");
+
+    applyButton?.addEventListener("click", openApplyModal);
+    applyNav?.addEventListener("click", (event) => {
+      event.preventDefault();
+      openApplyModal();
+    });
+    closeButton?.addEventListener("click", closeApplyModal);
+    backdrop?.addEventListener("click", closeApplyModal);
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      const modal = document.getElementById("apply-modal");
+      if (modal && !modal.hidden) {
+        closeApplyModal();
+      }
+    });
+  }
+
   function init() {
     renderAbout();
     renderAdmins();
@@ -89,6 +125,7 @@
     renderEvents();
     renderChangelog();
     applyMapDescription();
+    bindApplyModalEvents();
   }
 
   return { init };

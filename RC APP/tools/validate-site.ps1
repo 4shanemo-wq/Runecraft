@@ -76,3 +76,5 @@ if ($issues.Count -gt 0) {
 
 Write-Host 'Site validation passed.' -ForegroundColor Green
 
+exit 0
+

@@ -171,3 +171,6 @@ if ($removedSources.Count -gt 0) {
 Write-Host ""
 Write-Host "Add new gallery images by dropping source files into assets/Gallery and rerunning this script." -ForegroundColor Green
 Write-Host "Deleted source images will now be removed from gallery-data.js and orphaned generated JPGs will be cleaned up automatically." -ForegroundColor Green
+
+exit 0
+
