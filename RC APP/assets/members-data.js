@@ -183,6 +183,7 @@ window.RUNECRAFT_CREATOR_ROTATION = {
     "AJMcSaucy",
     "Sarah Jo",
     "SkepticHailz",
+    "Vibez",
     "Broken",
     "BuzzingSniper",
     "Remix",
@@ -190,8 +191,7 @@ window.RUNECRAFT_CREATOR_ROTATION = {
     "MonkeyingAround",
     "JerryCraft",
     "It_Hurtz",
-    "WafflesnSryp",
-    "Vibez",
+    "WafflesnSyrp",
     "DualSensory",
     "Finetic"
   ]
