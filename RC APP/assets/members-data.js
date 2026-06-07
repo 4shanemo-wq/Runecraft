@@ -80,14 +80,6 @@
     gradient: "linear-gradient(135deg, #06aed5 0%, #086788 25%, #f0f3f5 50%, #06aed5 75%, #086788 100%)"
   },
   {
-    name: "Twizza",
-    tiktok: "https://www.tiktok.com/@_twizza",
-    discord: "https://discord.gg/7cbrGG2yDQ",
-    skin: "Twizza.png",
-    card: "Twizza.png",
-    gradient: "linear-gradient(135deg, #a8dadc 0%, #457b9d 25%, #1d3557 50%, #a8dadc 75%, #457b9d 100%)"
-  },
-  {
     name: "Kooby",
     tiktok: "https://www.tiktok.com/@kooby.roory",
     discord: "https://discord.gg/hjGNGm8tas",
@@ -158,12 +150,28 @@
     skin: "Vibez.png",
     card: "Vibes.png",
     gradient: "linear-gradient(135deg, #dff7ff 0%, #9fdcff 30%, #cbeeff 55%, #ffffff 78%, #6fbfff 100%)"
+  },
+  {
+    name: "DualSensory",
+    tiktok: "https://www.tiktok.com/@dualsensory",
+    discord: "https://discord.gg/88E5EpPAyG",
+    skin: "DualSensory.png",
+    card: "DualSensory.png",
+    gradient: "linear-gradient(135deg, #000000 0%, #3f0b52 40%, #8a2be2 100%)"
+  },
+  {
+    name: "Finetic",
+    tiktok: "https://www.tiktok.com/@fineticf",
+    discord: "https://discord.gg/qtrU5kTrZ8",
+    skin: "Finetic.png",
+    card: "Finetic.png",
+    gradient: "linear-gradient(135deg, #fff200 0%, #ffffff 45%, #ff8c00 100%)"
   }
 ];
 
 window.RUNECRAFT_CREATOR_ROTATION = {
   startDate: "2026-04-12",
-  cycleLength: 20,
+  cycleLength: 21,
   schedule: [
     "Craftopia",
     "Kooby",
@@ -175,7 +183,6 @@ window.RUNECRAFT_CREATOR_ROTATION = {
     "AJMcSaucy",
     "Sarah Jo",
     "SkepticHailz",
-    "Twizza",
     "Broken",
     "BuzzingSniper",
     "Remix",
@@ -184,6 +191,8 @@ window.RUNECRAFT_CREATOR_ROTATION = {
     "JerryCraft",
     "It_Hurtz",
     "WafflesnSryp",
-    "Vibez"
+    "Vibez",
+    "DualSensory",
+    "Finetic"
   ]
 };
