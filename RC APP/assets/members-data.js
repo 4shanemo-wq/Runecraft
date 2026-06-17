@@ -81,7 +81,7 @@
   },
   {
     name: "Kooby",
-    tiktok: "https://www.tiktok.com/@kooby.roory",
+    tiktok: "https://www.tiktok.com/@koobyroo",
     discord: "https://discord.gg/hjGNGm8tas",
     skin: "Kooby.png",
     card: "Kooby.png",
