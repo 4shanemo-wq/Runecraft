@@ -16,9 +16,9 @@
     ]
   },
   admins: [
-    { name: "Shane", role: "General Admin (Server, Discord, Socials, and more)", skin: "Shane.png" },
+
     { name: "Kai", role: "SMP & Discord Admin", skin: "Kai.png" },
-    { name: "Alli", role: "Social Media Admin", skin: "Alli.png" }
+
   ],
   faq: [
     { question: "What is RuneCraft SMP?", answer: "RuneCraft is a private, creator-driven Minecraft SMP for content creators aged 18+." },
