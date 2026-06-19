@@ -136,14 +136,6 @@
     gradient: "linear-gradient(135deg, #3b82f6 0%, #9333ea 35%, #ef4444 100%)"
   },
   {
-    name: "WafflesnSyrp",
-    tiktok: "https://www.tiktok.com/@ilovewaffles_nsyrp",
-    discord: "https://discord.gg/WM2szBZE7e",
-    skin: "WafflesnSyrp.png",
-    card: "WafflesnSyrp.png",
-    gradient: "linear-gradient(135deg, #f59e0b 0%, #facc15 50%, #ffffff 100%)"
-  },
-  {
     name: "Vibez",
     tiktok: "https://www.tiktok.com/@vibesz95",
     discord: "https://discord.gg/Y3FThGXbt2",
@@ -191,7 +183,6 @@ window.RUNECRAFT_CREATOR_ROTATION = {
     "MonkeyingAround",
     "JerryCraft",
     "It_Hurtz",
-    "WafflesnSyrp",
     "DualSensory",
     "Finetic"
   ]
