@@ -144,14 +144,6 @@
     gradient: "linear-gradient(135deg, #dff7ff 0%, #9fdcff 30%, #cbeeff 55%, #ffffff 78%, #6fbfff 100%)"
   },
   {
-    name: "DualSensory",
-    tiktok: "https://www.tiktok.com/@dualsensory",
-    discord: "https://discord.gg/88E5EpPAyG",
-    skin: "DualSensory.png",
-    card: "DualSensory.png",
-    gradient: "linear-gradient(135deg, #000000 0%, #3f0b52 40%, #8a2be2 100%)"
-  },
-  {
     name: "Finetic",
     tiktok: "https://www.tiktok.com/@fineticf",
     discord: "https://discord.gg/qtrU5kTrZ8",
