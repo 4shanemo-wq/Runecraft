@@ -100,7 +100,7 @@
 
 window.RUNECRAFT_CREATOR_ROTATION = {
   startDate: "2026-04-12",
-  cycleLength: 21,
+  cycleLength: 5 / 1440,,
   schedule: [
     "Craftopia",
     "Kooby",
