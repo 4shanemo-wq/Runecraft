@@ -108,19 +108,12 @@ window.RUNECRAFT_CREATOR_ROTATION = {
     "Emma",
     "Seth",
     "DKizzel",
-    "EvAdain",
-    "AJMcSaucy",
-    "Sarah Jo",
     "SkepticHailz",
-    "Vibez",
-    "Broken",
     "BuzzingSniper",
     "Remix",
     "JustJosh Gaming",
     "MonkeyingAround",
     "JerryCraft",
-    "It_Hurtz",
-    "DualSensory",
-    "Finetic"
+
   ]
 };
